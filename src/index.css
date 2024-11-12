@@ -1,5 +1,118 @@
-* { 
+* {
   box-sizing: border-box;
 }
 
+html {
+  font-family: sans-serif;
+  font-size: 12pt;
+  background-color: grey;
+  --blauw-eurol: #233989;
+  --rood-eurol: #864058;
+  --blauw-reparatie: #0e277f;
+}
 
+body {
+  margin: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+
+
+.repair-card {
+  background-color: #FAF9F6;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+
+  .front {
+    width: 50%;
+  }
+
+  >div {    
+    flex-grow: 1;
+  }
+
+  .back {
+    width: 50%;
+  }
+
+  header {
+    h2 {
+      color: var(--blauw-eurol);
+      font-variant: small-caps;
+      border-bottom: 2px solid #864058;
+    }
+
+    h3,
+    p {
+      color: var(--rood-eurol);
+    }
+
+    display: grid;
+    grid-template-areas: "logo slogan slogan"
+    ".    hole   .     "
+    ".    hole   code";
+
+    .logo {
+      grid-area: logo;
+    }
+
+    .slogan {
+      grid-area: slogan;
+    }
+
+    .hole {
+      grid-area: hole;
+    }
+
+    .code {
+      grid-area: code;
+    }
+  }
+
+  main {
+    color: var(--blauw-reparatie);
+
+    h2 {
+      font-variant: small-caps;
+      text-align: center;
+    }
+
+    form {
+      margin: 1rem;
+
+      >div {
+        display: flex;
+        flex-direction: row;
+      }
+    }
+
+    input[type=text],
+    textarea {
+      flex: 1;
+      border: none;
+      background: transparent;
+      border-bottom: 2px dotted var(--blauw-reparatie);
+    }
+    
+    tr {
+      /* ???!!!???!! */
+      border-bottom: 2px dotted var(--blauw-reparatie);;
+    }
+  }
+
+  footer {}
+}
+
+@media (max-width: 800px) {
+  .repair-card {
+    flex-direction: column;
+    .front {
+      width: 100%;
+    }
+    .back {
+      width: 100%;
+    }
+  }
+}
