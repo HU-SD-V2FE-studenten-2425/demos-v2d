@@ -7,7 +7,7 @@ html {
   font-size: 12pt;
   background-color: grey;
   --blauw-eurol: #233989;
-  --rood-eurol: #864058;
+  --rood-eurol: #ad2222;
   --blauw-reparatie: #0e277f;
 }
 
@@ -26,6 +26,7 @@ body {
   align-items: stretch;
 
   .front {
+    margin: 10px 30px;
     width: 50%;
   }
 
@@ -34,11 +35,27 @@ body {
   }
 
   .back {
+    margin: 10px 30px;
     width: 50%;
+
+    header {
+      grid-template-areas: 
+      "logo logo logo"
+      ".    hole   .     "
+      ".    hole   .";
+    }
+  }
+
+  .code {
+    grid-area: code;
+    font-family: monospace;
+    font-size: 2rem;
   }
 
   header {
+    text-align: center;
     h2 {
+      margin-bottom: 5px;
       color: var(--blauw-eurol);
       font-variant: small-caps;
       border-bottom: 2px solid #864058;
@@ -47,10 +64,18 @@ body {
     h3,
     p {
       color: var(--rood-eurol);
+      font-style: italic;
+      font-weight: bold;
+      margin: auto;
+    }
+
+    h3 {
+      margin-top: 5px;
     }
 
     display: grid;
-    grid-template-areas: "logo slogan slogan"
+    grid-template-areas: 
+    "logo slogan slogan"
     ".    hole   .     "
     ".    hole   code";
 
@@ -64,11 +89,13 @@ body {
 
     .hole {
       grid-area: hole;
-    }
-
-    .code {
-      grid-area: code;
-    }
+      height: 100px;
+      width: 100px;
+      background-color: #444;
+      border-radius: 50%;
+      display: inline-block;
+      margin: 0 auto;
+    }    
   }
 
   main {
@@ -102,7 +129,25 @@ body {
     }
   }
 
-  footer {}
+  footer {
+    h2 {
+      color: var(--rood-eurol);
+      font-size: 2.5rem;
+      text-align: center;
+      border-bottom: 2px solid var(--blauw-eurol);
+      margin-bottom: 2px;
+    }
+    h3 {
+      margin-top: 2px;
+      color: var(--blauw-eurol);
+      text-align: center;
+    }
+
+    .code {
+      text-align: right;
+      margin-right: 45px;
+    }
+  }
 }
 
 @media (max-width: 800px) {
