@@ -12,38 +12,56 @@ html {
 }
 
 body {
-  margin: 0px;
+  margin: 0;
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
 }
-
 
 .repair-card {
   background-color: #FAF9F6;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
+  color: var(--blauw-reparatie);
+  display: grid;
+  grid-template-areas:
+    "logo slogan slogan . blurb blurb blurb"
+    ".    holef   .     .  .     holeb .    "
+    ".      .    code   . .       .   .    "
+    "repf repf   repf   . repb  repb  repb "
+    "footf footf footf  . footb footb footb"
+  ;
+  grid-template-columns: repeat(3, 1fr) 10px repeat(3, 1fr);
+  grid-template-rows: 8,3% 8,3% 8,3% 1fr 25%;  
 
-  .front {
-    margin: 10px 30px;
-    width: 50%;
+  > * {
+    margin: 10px 20px;
   }
 
-  >div {    
-    flex-grow: 1;
+  footer.front {
+    grid-area: footf;
   }
 
-  .back {
-    margin: 10px 30px;
-    width: 50%;
+  footer.back {
+    grid-area: footb;
+  }
 
-    header {
-      grid-template-areas: 
-      "logo logo logo"
-      ".    hole   .     "
-      ".    hole   .";
-    }
+  main.front {
+    grid-area: repf;
+  }
+
+  main.back {
+    grid-area: repb;
+  }
+
+  .blurb {
+    grid-area: blurb;
+  }
+
+  .logo {
+    grid-area: logo;
+  }
+
+  .slogan {
+    grid-area: slogan;
   }
 
   .code {
@@ -52,82 +70,76 @@ body {
     font-size: 2rem;
   }
 
-  header {
-    text-align: center;
-    h2 {
-      margin-bottom: 5px;
-      color: var(--blauw-eurol);
-      font-variant: small-caps;
-      border-bottom: 2px solid #864058;
-    }
-
-    h3,
-    p {
-      color: var(--rood-eurol);
-      font-style: italic;
-      font-weight: bold;
-      margin: auto;
-    }
-
-    h3 {
-      margin-top: 5px;
-    }
-
-    display: grid;
-    grid-template-areas: 
-    "logo slogan slogan"
-    ".    hole   .     "
-    ".    hole   code";
-
-    .logo {
-      grid-area: logo;
-    }
-
-    .slogan {
-      grid-area: slogan;
-    }
-
-    .hole {
-      grid-area: hole;
-      height: 100px;
-      width: 100px;
-      background-color: #444;
-      border-radius: 50%;
-      display: inline-block;
-      margin: 0 auto;
-    }    
+  .hole.front {
+    grid-area: holef;
+  }
+  .hole.back {
+    grid-area: holeb;
   }
 
-  main {
-    color: var(--blauw-reparatie);
-
-    h2 {
-      font-variant: small-caps;
-      text-align: center;
-    }
-
-    form {
-      margin: 1rem;
-
-      >div {
-        display: flex;
-        flex-direction: row;
-      }
-    }
-
-    input[type=text],
-    textarea {
-      flex: 1;
-      border: none;
-      background: transparent;
-      border-bottom: 2px dotted var(--blauw-reparatie);
-    }
+  .hole {
     
-    tr {
-      /* ???!!!???!! */
-      border-bottom: 2px dotted var(--blauw-reparatie);;
+    height: 100px;
+    width: 100px;
+    background-color: grey;    
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 auto;
+    
+  }
+
+  h2 {
+    margin-bottom: 5px;
+    color: var(--blauw-eurol);
+    font-variant: small-caps;
+    border-bottom: 2px solid #864058;
+  }
+
+  h3,
+  p {
+    color: var(--rood-eurol);
+    font-style: italic;
+    font-weight: bold;
+    margin: auto;
+  }
+
+  .blurb p {
+    color: var(--blauw-eurol)
+  }
+
+  h3 {
+    margin-top: 5px;
+  }
+  
+
+  h2 {
+    font-variant: small-caps;
+    text-align: center;
+  }
+
+  form {
+    margin: 1rem;
+
+    >div {
+      display: flex;
+      flex-direction: row;
     }
   }
+
+  input[type=text],
+  textarea {
+    flex: 1;
+    border: none;
+    background: transparent;
+    border-bottom: 2px dotted var(--blauw-reparatie);
+  }
+
+  tr {
+    /* ???!!!???!! */
+    border-bottom: 2px dotted var(--blauw-reparatie);
+    ;
+  }
+
 
   footer {
     h2 {
@@ -137,6 +149,7 @@ body {
       border-bottom: 2px solid var(--blauw-eurol);
       margin-bottom: 2px;
     }
+
     h3 {
       margin-top: 2px;
       color: var(--blauw-eurol);
@@ -152,12 +165,18 @@ body {
 
 @media (max-width: 800px) {
   .repair-card {
-    flex-direction: column;
-    .front {
-      width: 100%;
-    }
-    .back {
-      width: 100%;
-    }
-  }
-}
+   grid-template-areas:
+     "logo slogan slogan" 
+     ".    holef   .    " 
+     ".      .    code  " 
+     "repf repf   repf  " 
+     "footf footf footf " 
+     "blurb blurb blurb"
+     " .     holeb .    "
+     ".       .   .    "
+     "repb  repb  repb "
+     "footb footb footb"
+   ;
+  };   
+ }
+ 
