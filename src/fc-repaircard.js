@@ -5,16 +5,21 @@ import viteLogo from '/vite.svg'
 export class FcRepairCard extends LitElement {
   static get properties() {
     return {
-      code: { type: String }
+      code: { type: String },
+      loading: {type: Boolean}
     }
   }
 
   constructor() {
     super()
-    this.code = "123456";
+    this.code = "";
+    this.loading = false;
   }
 
   render() {
+    if(this.loading){
+      return html`<div>Loading...</div>`
+    }
     return html`
 <article class="repair-card">
 
@@ -174,9 +179,7 @@ export class FcRepairCard extends LitElement {
         }
 
         p {
-          display: inline-block;
-          float: right;
-          
+          float: right;          
         }
       }
     }
