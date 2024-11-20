@@ -1,19 +1,31 @@
 import { LitElement, css, html } from 'lit'
 import litLogo from './assets/lit.svg'
 import viteLogo from '/vite.svg'
+import FakeRepairService from './services/repair-service'
 
 export class FcRepairCard extends LitElement {
   static get properties() {
     return {
-      code: { type: String },
-      loading: {type: Boolean}
+      code: { type: String, reflect: true },
+      loading: {type: Boolean, private: true}
+    }
+  }
+
+  attributeChangedCallback(name, oldValue, newValue){
+    let service = new FakeRepairService();
+    if(name==="code"){
+      this.loading = true;
+      service.fetchCard(newValue).then(r => {
+          this.customer = r.customer;
+          this.loading = false;
+      });
     }
   }
 
   constructor() {
     super()
     this.code = "";
-    this.loading = false;
+    this.loading = true;
   }
 
   render() {
