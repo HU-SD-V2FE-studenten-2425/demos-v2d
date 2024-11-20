@@ -18,18 +18,20 @@ export class FcRepairCard extends LitElement {
         return html`
 <article class="repair-card">
 
-
-<div class="logo">
-  <h2>Eurol</h2>
-  <h3>Lubricants</h3>
-</div>
-<p class="slogan">Voor perfect fiets onderhoud</p>
-
-<div class="hole front"></div>
-<div class="code">
-  ${this.code}
-</div>
-
+<fc-header>
+    <div slot="top">
+        <div class="logo">
+            <h2>Eurol</h2>
+            <h3>Lubricants</h3>
+        </div>
+        <p class="slogan">Voor perfect fiets onderhoud</p>
+    </div>
+    <div slot="bottom">
+        <div class="code">
+            ${this.code}
+        </div>
+    </div>
+</fc-header>
 
 <main class="front">
   <h2>Reparatiekaart</h2>
@@ -56,11 +58,14 @@ export class FcRepairCard extends LitElement {
 
 
 
-<div class="blurb">
-  <h3>Fietsen, goed voor uw conditie</h3>
-  <p>Houdt Uw fiets zomer en winter in topconditie met Eurol producten!</p>
-</div>
-<div class="hole back"></div>
+<fc-header class="back">    
+    <div slot="top" class="logo">
+        <h2>Eurol</h2>
+        <h3>Lubricants</h3>
+    </div>
+    <p class="slogan">Voor perfect fiets onderhoud</p>
+    
+</fc-header>
 
 <main class="back">
   <h3>Nota</h3>
