@@ -7,39 +7,40 @@ export class FcRepairCard extends LitElement {
   static get properties() {
     return {
       code: { type: String, reflect: true },
-      loading: {type: Boolean, private: true}
+      loading: {type: Boolean, state: true}
     }
   }
 
-  attributeChangedCallback(name, oldValue, newValue){
+
+  loadCode(newValue){
     let service = new FakeRepairService();
-    if(name==="code"){
-      this.loading = true;
-      service.fetchCard(newValue).then(r => {
-          this.customer = r.customer;
-          this.loading = false;
-      });
-    }
+    this.loading = true;
+    return service.fetchCard(newValue).then(r => {
+        this.code = newValue;
+        this.customer = r.customer;
+        this.loading = false;
+    });
   }
 
   codeChange(e){
-    
-    this.code = e.detail.value;
     e.stopPropagation();
-    this.dispatchEvent(new CustomEvent('code-changed', {
-      detail: { code: this.code },
-      bubbles: true,
-      composed: true
-    }))
+    return this.loadCode(e.detail.value).then(() => {
+      this.dispatchEvent(new CustomEvent('code-changed', {
+        detail: { code: this.code },
+        bubbles: true,
+        composed: true
+      }));
+    });
   }
 
   constructor() {
     super()
     this.code = "";
-    this.loading = true;
+    this.loading = false;
   }
 
   render() {
+    console.log('rendering...')
     if(this.loading){
       return html`<div>Loading...</div>`
     }
