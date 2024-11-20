@@ -22,6 +22,17 @@ export class FcRepairCard extends LitElement {
     }
   }
 
+  codeChange(e){
+    
+    this.code = e.detail.value;
+    e.stopPropagation();
+    this.dispatchEvent(new CustomEvent('code-changed', {
+      detail: { code: this.code },
+      bubbles: true,
+      composed: true
+    }))
+  }
+
   constructor() {
     super()
     this.code = "";
@@ -45,7 +56,7 @@ export class FcRepairCard extends LitElement {
     </div>
     <div slot="bottom">
         <div class="code">
-            ${this.code}
+            <edit-string value=${this.code} @string-changed=${this.codeChange}></edit-string>
         </div>
     </div>
 </fc-header>
@@ -69,7 +80,7 @@ export class FcRepairCard extends LitElement {
 </main>
 <fc-footer class="front">      
   <div class="code">
-  ${this.code}
+    <edit-string value=${this.code} @string-changed=${this.codeChange}></edit-string>
   </div>
 </fc-footer>
 
