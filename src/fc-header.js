@@ -5,42 +5,38 @@ import viteLogo from '/vite.svg'
 export class FcHeader extends LitElement {
   static get properties() {
     return {
-   
+
     }
   }
 
   constructor() {
-    super()    
+    super()
   }
 
   render() {
     return html`
-
-<!-- <div class="logo">
-  <h2>Eurol</h2>
-  <h3>Lubricants</h3>
-</div>
-<p class="slogan">Voor perfect fiets onderhoud</p>
-
-<div class="hole front"></div>
-<div class="code">
-  ${this.code}
-</div>
-
-
-
-<div class="blurb">
-  <h3>Fietsen, goed voor uw conditie</h3>
-  <p>Houdt Uw fiets zomer en winter in topconditie met Eurol producten!</p>
-</div>
-<div class="hole back"></div> -->
-
+      <slot name="top"></slot>
+      <div class="hole"></div>
+      <slot name="bottom"></slot>
     `
   }
 
   static get styles() {
     return css`
+    :host {
+      position: relative;
+    }
      
+    .hole {
+        height: 100px;
+        width: 100px;
+        background-color: grey;
+        border-radius: 50%;
+        position:absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
     `
   }
 }

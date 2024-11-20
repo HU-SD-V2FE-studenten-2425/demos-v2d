@@ -3,22 +3,22 @@ import litLogo from './assets/lit.svg'
 import viteLogo from '/vite.svg'
 
 export class FcRepairCard extends LitElement {
-    static get properties() {
-        return {
-            code: { type: String }
-        }
+  static get properties() {
+    return {
+      code: { type: String }
     }
+  }
 
-    constructor() {
-        super()
-        this.code = "123456";
-    }
+  constructor() {
+    super()
+    this.code = "123456";
+  }
 
-    render() {
-        return html`
+  render() {
+    return html`
 <article class="repair-card">
 
-<fc-header>
+<fc-header class="front">
     <div slot="top">
         <div class="logo">
             <h2>Eurol</h2>
@@ -56,15 +56,11 @@ export class FcRepairCard extends LitElement {
   </div>
 </fc-footer>
 
-
-
 <fc-header class="back">    
-    <div slot="top" class="logo">
-        <h2>Eurol</h2>
-        <h3>Lubricants</h3>
-    </div>
-    <p class="slogan">Voor perfect fiets onderhoud</p>
-    
+  <div slot="top" class="blurb">
+    <h3>Fietsen, goed voor uw conditie</h3>
+    <p>Houdt Uw fiets zomer en winter in topconditie met Eurol producten!</p>
+  </div>
 </fc-header>
 
 <main class="back">
@@ -127,23 +123,21 @@ export class FcRepairCard extends LitElement {
 </fc-footer>
 </article>
     `
-    }
+  }
 
-    static get styles() {
-        return css`     
+  static get styles() {
+    return css`     
 .repair-card {
     background-color: #FAF9F6;
     color: var(--blauw-reparatie);
     display: grid;
     grid-template-areas:
-        "logo slogan slogan . blurb blurb blurb"
-        ".    holef   .     .  .     holeb .    "
-        ".      .    code   . .       .   .    "
-        "repf repf   repf   . repb  repb  repb "
-        "footf footf footf  . footb footb footb"
+        "headf . headb"
+        "repf  . repb"
+        "footf . footb"
     ;
-    grid-template-columns: repeat(3, 1fr) 10px repeat(3, 1fr);
-    grid-template-rows: 8, 3% 8, 3% 8, 3% 1fr 25%;
+    grid-template-columns: 1fr 10px 1fr;
+    grid-template-rows: 1fr 2fr 1fr;
 
     >* {
         margin: 10px 20px;
@@ -165,41 +159,33 @@ export class FcRepairCard extends LitElement {
         grid-area: repb;
     }
 
-    .blurb {
-        grid-area: blurb;
+    fc-header.front {
+        grid-area: headf;
     }
 
-    .logo {
-        grid-area: logo;
+    fc-header.back {
+      grid-area: headb;
     }
 
-    .slogan {
-        grid-area: slogan;
+    fc-header.front {
+      div {
+        .logo {
+          display: inline-block;
+        }
+
+        p {
+          display: inline-block;
+          float: right;
+          
+        }
+      }
     }
 
     .code {
-        grid-area: code;
         font-family: monospace;
         font-size: 2rem;
-    }
-
-    .hole.front {
-        grid-area: holef;
-    }
-
-    .hole.back {
-        grid-area: holeb;
-    }
-
-    .hole {
-
-        height: 100px;
-        width: 100px;
-        background-color: grey;
-        border-radius: 50%;
-        display: inline-block;
-        margin: 0 auto;
-
+        text-align: right;
+        margin-right: 45px;
     }
 
     h2 {
@@ -207,6 +193,8 @@ export class FcRepairCard extends LitElement {
         color: var(--blauw-eurol);
         font-variant: small-caps;
         border-bottom: 2px solid #864058;
+        font-variant: small-caps;
+        text-align: center;
     }
 
     h3,
@@ -225,12 +213,6 @@ export class FcRepairCard extends LitElement {
         margin-top: 5px;
     }
 
-
-    h2 {
-        font-variant: small-caps;
-        text-align: center;
-    }
-
     form {
         margin: 1rem;
 
@@ -247,41 +229,9 @@ export class FcRepairCard extends LitElement {
         background: transparent;
         border-bottom: 2px dotted var(--blauw-reparatie);
     }
-
-    tr {
-        /* ???!!!???!! */
-        border-bottom: 2px dotted var(--blauw-reparatie);
-        ;
-    }
-
-    .code {
-        text-align: right;
-        margin-right: 45px;
-
-    }
-
-    }
-
-    @media (max-width: 800px) {
-    .repair-card {
-        grid-template-areas:
-        "logo slogan slogan"
-        ".    holef   .    "
-        ".      .    code  "
-        "repf repf   repf  "
-        "footf footf footf "
-        "blurb blurb blurb"
-        " .     holeb .    "
-        ".       .   .    "
-        "repb  repb  repb "
-        "footb footb footb"
-        ;
-    }
-
-    ;
-}
+  }
     `
-    }
+  }
 }
 
 window.customElements.define('fc-repaircard', FcRepairCard)
