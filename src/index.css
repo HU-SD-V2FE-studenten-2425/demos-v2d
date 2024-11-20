@@ -147,21 +147,23 @@ body {
 
   }
 
-  @media (max-width: 800px) {
-    .repair-card {
-      grid-template-areas:
-        "logo slogan slogan"
-        ".    holef   .    "
-        ".      .    code  "
-        "repf repf   repf  "
-        "footf footf footf "
-        "blurb blurb blurb"
-        " .     holeb .    "
-        ".       .   .    "
-        "repb  repb  repb "
-        "footb footb footb"
-      ;
-    }
+}
 
+@media (max-width: 800px) {
+  .repair-card {
+    grid-template-areas:
+      "logo slogan slogan"
+      ".    holef   .    "
+      ".      .    code  "
+      "repf repf   repf  "
+      "footf footf footf "
+      "blurb blurb blurb"
+      " .     holeb .    "
+      ".       .   .    "
+      "repb  repb  repb "
+      "footb footb footb"
     ;
   }
+
+  ;
+}
