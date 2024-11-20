@@ -30,17 +30,17 @@ body {
     "footf footf footf  . footb footb footb"
   ;
   grid-template-columns: repeat(3, 1fr) 10px repeat(3, 1fr);
-  grid-template-rows: 8,3% 8,3% 8,3% 1fr 25%;  
+  grid-template-rows: 8, 3% 8, 3% 8, 3% 1fr 25%;
 
-  > * {
+  >* {
     margin: 10px 20px;
   }
 
-  footer.front {
+  fc-footer.front {
     grid-area: footf;
   }
 
-  footer.back {
+  fc-footer.back {
     grid-area: footb;
   }
 
@@ -73,19 +73,20 @@ body {
   .hole.front {
     grid-area: holef;
   }
+
   .hole.back {
     grid-area: holeb;
   }
 
   .hole {
-    
+
     height: 100px;
     width: 100px;
-    background-color: grey;    
+    background-color: grey;
     border-radius: 50%;
     display: inline-block;
     margin: 0 auto;
-    
+
   }
 
   h2 {
@@ -110,7 +111,7 @@ body {
   h3 {
     margin-top: 5px;
   }
-  
+
 
   h2 {
     font-variant: small-caps;
@@ -140,43 +141,27 @@ body {
     ;
   }
 
+  .code {
+    text-align: right;
+    margin-right: 45px;
 
-  footer {
-    h2 {
-      color: var(--rood-eurol);
-      font-size: 2.5rem;
-      text-align: center;
-      border-bottom: 2px solid var(--blauw-eurol);
-      margin-bottom: 2px;
-    }
-
-    h3 {
-      margin-top: 2px;
-      color: var(--blauw-eurol);
-      text-align: center;
-    }
-
-    .code {
-      text-align: right;
-      margin-right: 45px;
-    }
   }
-}
 
-@media (max-width: 800px) {
-  .repair-card {
-   grid-template-areas:
-     "logo slogan slogan" 
-     ".    holef   .    " 
-     ".      .    code  " 
-     "repf repf   repf  " 
-     "footf footf footf " 
-     "blurb blurb blurb"
-     " .     holeb .    "
-     ".       .   .    "
-     "repb  repb  repb "
-     "footb footb footb"
-   ;
-  };   
- }
- 
+  @media (max-width: 800px) {
+    .repair-card {
+      grid-template-areas:
+        "logo slogan slogan"
+        ".    holef   .    "
+        ".      .    code  "
+        "repf repf   repf  "
+        "footf footf footf "
+        "blurb blurb blurb"
+        " .     holeb .    "
+        ".       .   .    "
+        "repb  repb  repb "
+        "footb footb footb"
+      ;
+    }
+
+    ;
+  }
