@@ -5,6 +5,7 @@ export class FcRepairCard extends LitElement {
   static get properties() {
     return {
       code: { type: String, reflect: true },
+      repairData: { type: Object},
       loading: { type: Boolean, state: true }
     }
   }
@@ -21,6 +22,7 @@ export class FcRepairCard extends LitElement {
     
     return service.fetchCard(newValue).then(r => {
       this.loading = false;
+      this.repairData = r;
     });
   }
 
@@ -65,21 +67,7 @@ export class FcRepairCard extends LitElement {
 </fc-header>
 
 <main class="front">
-  <h2>Reparatiekaart</h2>
-  <form>
-    <div><label for="naam">Naam: </label><input type="text" id="naam" name="naam"></div>
-    <div><label for="adres">Adres: </label><input type="text" id="adres" name="adres"></div>
-
-
-    <div class="horizontal">
-      <label for="ontvanger">Ontvanger: </label><input type="text" id="ontvanger" name="ontvanger">
-      <label for="klaar">Klaar: </label><input type="text" id="klaar" name="klaar">
-    </div>
-    <br /><br />
-    <div>
-      <label for="opdracht">Opdracht: </label><textarea id="opdracht" name="opdracht" rows="10"></textarea>
-    </div>
-  </form>
+  <main-form .repairData=${this.repairData} ></main-form>
 </main>
 <fc-footer class="front">      
   <div class="code">
