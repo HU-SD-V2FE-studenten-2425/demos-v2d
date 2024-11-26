@@ -4,5 +4,4 @@ import "./fc-header"
 import "./edit-string"
 
 let card = document.querySelector('fc-repaircard');
-
-card.loadCode("372251");
+card.code = "372251";

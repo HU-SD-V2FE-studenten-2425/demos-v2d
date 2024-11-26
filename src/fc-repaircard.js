@@ -1,36 +1,38 @@
 import { LitElement, css, html } from 'lit'
-import litLogo from './assets/lit.svg'
-import viteLogo from '/vite.svg'
 import FakeRepairService from './services/repair-service'
 
 export class FcRepairCard extends LitElement {
   static get properties() {
     return {
       code: { type: String, reflect: true },
-      loading: {type: Boolean, state: true}
+      loading: { type: Boolean, state: true }
     }
   }
 
+  willUpdate(changedProperties){
+    if(changedProperties.has("code")){
+      this.#loadCode(this.code)
+    }
+  }
 
-  loadCode(newValue){
+  #loadCode(newValue) {
     let service = new FakeRepairService();
     this.loading = true;
+    
     return service.fetchCard(newValue).then(r => {
-        this.code = newValue;
-        this.customer = r.customer;
-        this.loading = false;
+      this.loading = false;
     });
   }
 
-  codeChange(e){
+  codeChange(e) {
     e.stopPropagation();
-    return this.loadCode(e.detail.value).then(() => {
-      this.dispatchEvent(new CustomEvent('code-changed', {
-        detail: { code: this.code },
-        bubbles: true,
-        composed: true
-      }));
-    });
+    this.code = e.detail.value;
+
+    this.dispatchEvent(new CustomEvent('code-changed', {
+      detail: { code: this.code },
+      bubbles: true,
+      composed: true
+    }));
   }
 
   constructor() {
@@ -41,7 +43,7 @@ export class FcRepairCard extends LitElement {
 
   render() {
     console.log('rendering...')
-    if(this.loading){
+    if (this.loading) {
       return html`<div>Loading...</div>`
     }
     return html`

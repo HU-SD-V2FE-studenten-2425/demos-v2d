@@ -7,14 +7,8 @@ Promise.delay = (ms) => {
 
 export default class FakeRepairService {
     fetchCard(number){
-        console.log('fake fetching', number);
         return Promise.delay(500).then(()=> ({
-            number,
-            customer: {
-                name: "Bob de Vries",
-                address: "ADreef 33"
-            },
-            receiver: "Johnny Bravo"                
+            number              
         }));
     }
 }

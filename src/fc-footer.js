@@ -47,7 +47,7 @@ export class FcFooter extends LitElement {
           text-align: center;
         }
       }
-    }
+    
     `
   }
 }
