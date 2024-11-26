@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit'
-import FakeRepairService from './services/repair-service'
+import FakeRepairService from '../services/repair-service'
 
 export class FcRepairCard extends LitElement {
   static get properties() {
