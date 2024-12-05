@@ -1,21 +1,22 @@
 import { LitElement, css, html } from 'lit'
+import { when } from 'lit/directives/when.js';
 import FakeRepairService from '../services/repair-service'
 
 export class FcRepairCard extends LitElement {
   static get properties() {
     return {
       code: { type: String, reflect: true },
-      repairData: { type: Object},
+      repairData: { type: Object },
       loading: { type: Boolean, state: true }
     }
   }
 
-  onBeforeEnter(location, commands, router) {    
+  onBeforeEnter(location, commands, router) {
     this.code = location.params.code;
   }
 
-  willUpdate(changedProperties){
-    if(changedProperties.has("code")){
+  willUpdate(changedProperties) {
+    if (changedProperties.has("code")) {
       this.#loadCode(this.code)
     }
   }
@@ -23,7 +24,7 @@ export class FcRepairCard extends LitElement {
   #loadCode(newValue) {
     let service = new FakeRepairService();
     this.loading = true;
-    
+
     return service.fetchCard(newValue).then(r => {
       this.loading = false;
       this.repairData = r;
@@ -45,14 +46,20 @@ export class FcRepairCard extends LitElement {
     super()
     this.code = "";
     this.loading = false;
+    this.repairData = {
+      number: 0,
+      receiver: {
+        firstName: "",
+        lastName: ""
+      }
+
+    }
   }
 
   render() {
-    console.log('rendering...')
-    if (this.loading) {
-      return html`<div>Loading...</div>`
-    }
+
     return html`
+${when(this.loading, () => html`<div class="loading">Loading...</div>`)}
 <article class="repair-card">
 
 <fc-header class="front">
@@ -150,6 +157,16 @@ export class FcRepairCard extends LitElement {
 
   static get styles() {
     return css`     
+:host {
+  position:relative;
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left:50%;
+}
+
 .repair-card {
     background-color: #FAF9F6;
     color: var(--blauw-reparatie);

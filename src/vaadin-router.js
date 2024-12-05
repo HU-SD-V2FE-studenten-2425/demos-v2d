@@ -34,7 +34,13 @@ export class VaadinRouter extends LitElement {
 
   render() {
     return html`
-        <h1>Dit is de router!</h1>
+        <h1>Een gedeelde header van de router</h1>
+        <p>En een paar test-routes</p>
+        <ul>
+          <li><a href="/">Dummy</a></li>
+          <li><a href="/repair/123">Repair 123</a></li>
+          <li><a href="/repair/456">Repair 456</a></li>
+        </ul>
         <div ${ref(this.divRef)}></div>
     `
   }
