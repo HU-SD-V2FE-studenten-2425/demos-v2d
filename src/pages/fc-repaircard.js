@@ -10,6 +10,10 @@ export class FcRepairCard extends LitElement {
     }
   }
 
+  onBeforeEnter(location, commands, router) {    
+    this.code = location.params.code;
+  }
+
   willUpdate(changedProperties){
     if(changedProperties.has("code")){
       this.#loadCode(this.code)
