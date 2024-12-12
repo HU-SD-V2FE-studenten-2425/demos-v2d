@@ -27,8 +27,7 @@ export class EditableString extends LitElement {
   }
 
   startEdit(){
-    this.editing = true;
-    console.log(this.querySelector('input'))
+    this.editing = true;    
   }
 
   stopEdit(){
@@ -43,6 +42,12 @@ export class EditableString extends LitElement {
   enterPressed(e){
     if(e.key === "Enter"){      
       this.stopEdit();
+    }    
+  }
+
+  keyOnLabel(e){
+    if(e.key === "Enter" || e.key === " "){      
+      this.startEdit();
     }    
   }
 
@@ -62,7 +67,7 @@ export class EditableString extends LitElement {
                           
                           <button @click=${this.stopEdit} aria-pressed="true">Ok</button>`
         }, () => {
-            return html`<span @click=${this.startEdit} tabindex="1" role="button" aria-pressed="false" >${this.value}</span>`
+            return html`<span @click=${this.startEdit} @keyup=${this.keyOnLabel} tabindex="1" role="button" aria-pressed="false" >${this.value}</span>`
         })}        
     `
   }
