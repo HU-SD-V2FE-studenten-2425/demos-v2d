@@ -1,7 +1,10 @@
 import { LitElement, css, html } from 'lit'
 import {when} from 'lit/directives/when.js';
+import {ref, createRef} from 'lit/directives/ref.js';
 
 export class EditableString extends LitElement {
+  inputRef = createRef();
+
   static get properties() {
     return {
         value: {type: String, reflect: true},
@@ -15,20 +18,21 @@ export class EditableString extends LitElement {
     this.editing = false;
   }
 
+  onBeforeEnter(location, commands, router){
+    this.router = router;
+  }
+
   connectedCallback(){
     super.connectedCallback();
   }
 
   startEdit(){
     this.editing = true;
+    console.log(this.querySelector('input'))
   }
 
   stopEdit(){
     this.editing = false;
-  }
-
-  changingValue(e){
-    this.value = e.currentTarget.value;
     this.dispatchEvent(new CustomEvent("string-changed", { 
       detail: { value: this.value },
       composed: true,
@@ -36,17 +40,29 @@ export class EditableString extends LitElement {
     }));
   }
 
+  enterPressed(e){
+    if(e.key === "Enter"){      
+      this.stopEdit();
+    }    
+  }
+
+  changingValue(e){
+    this.value = e.currentTarget.value;
+  }
+
   render() {
     return html`
         ${when(this.editing, () => {
-            return html`<input 
+            return html`<input
+                          ${ref(this.inputRef)} 
                           type="text" 
                           value="${this.value}" 
-                          @change=${this.changingValue}>
+                          @change=${this.changingValue}
+                          @keyup=${this.enterPressed}>
                           
-                          <button @click=${this.stopEdit}>Ok</button>`
+                          <button @click=${this.stopEdit} aria-pressed="true">Ok</button>`
         }, () => {
-            return html`<span @click=${this.startEdit}>${this.value}</span>`
+            return html`<span @click=${this.startEdit} tabindex="1" role="button" aria-pressed="false" >${this.value}</span>`
         })}        
     `
   }
@@ -54,12 +70,18 @@ export class EditableString extends LitElement {
   static get styles() {
     return css`
         span {
-            cursor: pointer;
+            cursor: pointer;  
         }
         input {
           max-width: 70px;
         }
     `
+  }
+
+  updated(changedProperties){
+    if(this.editing){
+      this.inputRef.value.focus();
+    }
   }
 }
 

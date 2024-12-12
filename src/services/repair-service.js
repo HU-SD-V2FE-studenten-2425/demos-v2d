@@ -7,7 +7,7 @@ Promise.delay = (ms) => {
 
 export default class FakeRepairService {
     fetchCard(number){
-        return Promise.delay(500).then(()=> ({
+        return Promise.delay(1000).then(()=> ({
             number,
             receiver: {
                 firstName: "Bob",

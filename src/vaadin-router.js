@@ -10,18 +10,20 @@ export class VaadinRouter extends LitElement {
 
   static get properties() {
     return {
-   
+      message: { type: String }
     }
   }
   
 
   constructor() {
     super()
+    this.message = "";
     
   }
 
   firstUpdated(){
     this.router = new Router();
+    this.router.component = this;
     this.router.setOutlet(this.divRef.value);
     this.router.setRoutes([{
         path: "/", component: "dummy-page"
@@ -34,20 +36,32 @@ export class VaadinRouter extends LitElement {
 
   render() {
     return html`
+        <header>
         <h1>Een gedeelde header van de router</h1>
         <p>En een paar test-routes</p>
+        <nav>
         <ul>
           <li><a href="/">Dummy</a></li>
           <li><a href="/repair/123">Repair 123</a></li>
           <li><a href="/repair/456">Repair 456</a></li>
         </ul>
+        </nav>
+        </header>
         <div ${ref(this.divRef)}></div>
+        <!-- <div class="aria-feedback" aria-live="polite">${this.message}</div> -->
     `
   }
 
   static get styles() {
     return css`
-     
+      a {
+        color: black;
+      }
+/* 
+      .aria-feedback {
+        visibility: hidden;
+      } */
+
     `
   }
 }

@@ -12,13 +12,19 @@ export class FcRepairCard extends LitElement {
   }
 
   onBeforeEnter(location, commands, router) {
+    console.log('navigating through router');
     this.code = location.params.code;
+    router.component.message = "loading card for " + this.code;
   }
 
   willUpdate(changedProperties) {
     if (changedProperties.has("code")) {
       this.#loadCode(this.code)
     }
+  }
+
+  firstUpdated(){
+    this.shadowRoot.querySelector('article').focus();
   }
 
   #loadCode(newValue) {
@@ -28,6 +34,12 @@ export class FcRepairCard extends LitElement {
     return service.fetchCard(newValue).then(r => {
       this.loading = false;
       this.repairData = r;
+            
+      // Hack, de repair-card zou zijn eigen url niet moeten weten, en niet van de history gebruik moeten maken
+      if(window.location.pathname != `/repair/${newValue}`){
+        window.history.pushState({}, null, "http://localhost:5173/repair/" + newValue)
+      }
+      
     });
   }
 
@@ -59,13 +71,12 @@ export class FcRepairCard extends LitElement {
   render() {
 
     return html`
-${when(this.loading, () => html`<div class="loading">Loading...</div>`)}
-<article class="repair-card">
-
+${when(this.loading, () => html`<div class="loading" role="alert">Loading card ${this.code}</div>`)}
+<article class="repair-card" tabindex="-1" aria-label="Card ${this.code}" >
 <fc-header class="front">
     <div slot="top">
         <div class="logo">
-            <h2>Eurol</h2>
+            <h2 role="status">Eurol</h2>
             <h3>Lubricants</h3>
         </div>
         <p class="slogan">Voor perfect fiets onderhoud</p>
@@ -77,7 +88,7 @@ ${when(this.loading, () => html`<div class="loading">Loading...</div>`)}
     </div>
 </fc-header>
 
-<main class="front">
+<main class="front" aria-label="Reparatiekaart">
   <main-form .repairData=${this.repairData} ></main-form>
 </main>
 <fc-footer class="front">      
@@ -93,8 +104,8 @@ ${when(this.loading, () => html`<div class="loading">Loading...</div>`)}
   </div>
 </fc-header>
 
-<main class="back">
-  <h3>Nota</h3>
+<main class="back" aria-labelledby="nota-header">
+  <h3 id="nota-header">Nota</h3>
   <form>
     <div class="horizontal">
       <label for="datum">Datum: </label><input type="text" id="datum" name="datum">

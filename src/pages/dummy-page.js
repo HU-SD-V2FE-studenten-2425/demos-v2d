@@ -1,19 +1,30 @@
 import { LitElement, css, html } from 'lit'
+import {ref, createRef} from 'lit/directives/ref.js';
 
 export class DummyPage extends LitElement {
+
+  headerRef = createRef();
   static get properties() {
     return {
 
     }
   }
 
+  onBeforeEnter(loc, com, router){
+    router.component.message = "Hoi";
+  }
+
+  firstUpdated(){         
+    this.headerRef.value.focus();
+  }
+
   constructor() {
-    super()
+    super();   
   }
 
   render() {
     return html`
-      <h1>Hello world!</h1>
+      <h2 tabindex="-1" ${ref(this.headerRef)}>Hello world!</h2>
       <skeleton-carousel dots nav loop>
         <img src="https://api.groenkennisnet.nl/upload_mm/4/8/d/743947_fullimage_guinea-pig-2017678_1280.jpg">
         <img src="https://www.almeloord.nl/uploads/images/shutterstock_76763146_Almeloord_Paginabeheer_Cavia_202001151444232.jpg">
